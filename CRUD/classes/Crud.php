@@ -1,44 +1,49 @@
 <?php
-
-class Crud{
+class Crud
+{
     private $conn;
     private $table_name = "tbusuario";
-
+    
     public function __construct($db)
     {
-        $this-> conn = $db;
+        $this->conn = $db;
     }
-    public function create($nome, $idade){
-        $query = "insert into ".$this->table_name." (nome,idade) value (?,?)";
+    public function create($nome, $idade)
+    {
+        $query = "INSERT INTO " . $this->table_name . " (nome, idade) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute ([$nome, $idade]);
+        $stmt->execute([$nome, $idade]);
         return $stmt;
     }
-    public function read(){
-        $query = "select * from ".$this->table_name;
+
+    public function read()
+    {
+        $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
-    public function readEdit($id){
-        $query = "select * from ".$this->table_name." where id = :id";
+    public function readEdit($id)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
         return $stmt;
     }
-    public function update($id,$nome,$idade){
-        $query = "update ".$this->table_name." set nome = ?, idade = ? where id = ?";
+    public function update($id, $nome, $idade)
+    {
+        $query = "UPDATE " . $this->table_name . " SET nome = ?, idade = ? WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute($nome, $idade, $id);
+        $stmt->execute([$nome, $idade, $id]);
         return $stmt;
     }
-    public function delete ($id){
-        $query = "delete from ".$this->table_name." where id = ?";
+
+    public function delete($id)
+    {
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$id]);
         return $stmt;
     }
 }
-
-?>

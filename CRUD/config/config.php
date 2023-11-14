@@ -1,7 +1,5 @@
 <?php
-
-include_once "./classes/DataBase.php";
-$database = new DataBase();
-$db = $database-> getConnection();
-
+    include_once "./classes/Database.php"; 
+    $database = new Database(); 
+    $db = $database->getConnection();
 ?>
